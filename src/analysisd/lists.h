@@ -45,26 +45,83 @@ typedef struct ListRule {
     pthread_mutex_t mutex;
 } ListRule;
 
-/* Create the rule list */
+/**
+ * @brief Create the rule list
+ */
 void OS_CreateListsList(void);
 
-/* Add rule information to the list */
-int OS_AddList( ListNode *new_listnode );
+/**
+ * @brief Add rule information to the list
+ * @param new_listnode
+ * @param cdblists
+ * @return
+ */
+int OS_AddList( ListNode *new_listnode, ListNode **cdblists);
 
-int Lists_OP_LoadList(char *listfile);
+/**
+ * @brief
+ * @param listfile
+ * @param cdblists
+ * @return
+ */
+int Lists_OP_LoadList(char *listfile, ListNode **cdblists);
 
+/**
+ * @brief
+ * @param
+ * @param
+ * @return
+ */
 int OS_DBSearchKey(ListRule *lrule, char *key);
 
+/**
+ * @brief
+ * @param lrule
+ * @param key
+ * @param
+ * @return
+ */
 int OS_DBSearch(ListRule *lrule, char *key, ListNode *l_node);
 
-void OS_ListLoadRules(ListNode **l_node);
+/**
+ * @brief
+ * @param l_node
+ * @param lrule
+ */
+void OS_ListLoadRules(ListNode **l_node, ListRule **lrule);
 
-ListRule *OS_AddListRule(ListRule *first_rule_list, int lookup_type, int field, const char *dfield, char *listname, OSMatch *matcher, ListNode *l_node);
+/**
+ * @brief
+ * @param first_rule_list
+ * @param lookup_type
+ * @param field
+ * @param dfield
+ * @param listname
+ * @param matcher
+ * @param l_node
+ * @return
+ */
+ListRule *OS_AddListRule(ListRule *first_rule_list, int lookup_type, int field,
+                         const char *dfield, char *listname, OSMatch *matcher,
+                         ListNode *l_node);
 
+/**
+ * @brief Get first listnode
+ * @return os_analysisd_cdblists list
+ */
 ListNode *OS_GetFirstList(void);
 
+/**
+ * @brief
+ * @param listname
+ * @param l_node
+ * @return
+ */
 ListNode *OS_FindList(const char *listname, ListNode *l_node);
 
+/**
+ * @brief Initialize the cdb lookup lists
+ */
 void Lists_OP_CreateLists(void);
 
 #endif /* LISTS_H */

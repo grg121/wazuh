@@ -196,3 +196,21 @@ int OS_AddOSDecoder(OSDecoderInfo *pi, OSDecoderNode **pn_osdecodernode, OSDecod
     }
     return (1);
 }
+
+void os_remove_decoders_list (OSDecoderNode *decoderlist) {
+
+    OSDecoderNode *tmp_node;
+
+    while (decoderlist) {
+
+        if (decoderlist->child) {
+            os_remove_decoders_list(decoderlist->child);
+        }
+
+        tmp_node = decoderlist;
+        decoderlist = decoderlist->next;
+
+        FreeDecoderInfo(tmp_node->osdecoder);
+        os_free(tmp_node);
+    }
+}

@@ -75,11 +75,20 @@ typedef struct dbsync_context_t {
     cJSON * data;
 } dbsync_context_t;
 
-/* Functions to Create the list, add a osdecoder to the
- * list and to get the first osdecoder
+/**
+ * @brief Initialize to NULL decoder lists
  */
 void OS_CreateOSDecoderList(void);
+
+/**
+ * @brief Add decoders to decoder lists
+ * @param pi decoder to add in decoder list
+ * @param pn_osdecodernode decoder list for events with program name
+ * @param npn_osdecodernode decoder list for events without program name
+ * @return 1 on success, otherwise 0
+ */
 int OS_AddOSDecoder(OSDecoderInfo *pi, OSDecoderNode **pn_osdecodernode, OSDecoderNode **npn_osdecodernode);
+
 OSDecoderNode *OS_GetFirstOSDecoder(const char *pname);
 int getDecoderfromlist(const char *name);
 char *GetGeoInfobyIP(char *ip_addr);
@@ -91,6 +100,18 @@ void SyscollectorInit(void);
 void CiscatInit(void);
 void WinevtInit(void);
 void SecurityConfigurationAssessmentInit(void);
-int ReadDecodeXML(const char *file);
+int ReadDecodeXML(const char *file, OSDecoderNode **decoderlist_pn,  OSDecoderNode **decoderlist_nopn);
+
+/**
+ * @brief Remove decoder
+ * @param pi decoder information to remove
+ */
+void FreeDecoderInfo(OSDecoderInfo *pi);
+
+/**
+ * @brief Remove decoder list
+ * @param decoderlist list of decoder to remove
+ */
+void os_remove_decoders_list (OSDecoderNode *decoderlist);
 
 #endif /* DECODER_H */

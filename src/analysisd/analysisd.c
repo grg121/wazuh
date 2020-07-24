@@ -530,7 +530,7 @@ int main_analysisd(int argc, char **argv)
                     if (!test_config) {
                         mdebug1("Reading decoder file %s.", *decodersfiles);
                     }
-                    if (!ReadDecodeXML(*decodersfiles)) {
+                    if (!ReadDecodeXML(*decodersfiles, &os_analysisd_decoderlist_pn, &os_analysisd_decoderlist_nopn)) {
                         merror_exit(CONFIG_ERROR, *decodersfiles);
                     }
 
@@ -554,7 +554,7 @@ int main_analysisd(int argc, char **argv)
                     if (!test_config) {
                         mdebug1("Reading the lists file: '%s'", *listfiles);
                     }
-                    if (Lists_OP_LoadList(*listfiles) < 0) {
+                    if (Lists_OP_LoadList(*listfiles, &os_analysisd_cdblists) < 0) {
                         merror_exit(LISTS_ERROR, *listfiles);
                     }
                     free(*listfiles);
@@ -563,7 +563,7 @@ int main_analysisd(int argc, char **argv)
                 free(Config.lists);
                 Config.lists = NULL;
             }
-            Lists_OP_MakeAll(0, 0);
+            Lists_OP_MakeAll(0, 0, &os_analysisd_cdblists);
         }
 
         {
@@ -601,7 +601,7 @@ int main_analysisd(int argc, char **argv)
              * search thought the list of lists for the correct file during
              * rule evaluation.
              */
-            OS_ListLoadRules(&os_analysisd_cdblists);
+            OS_ListLoadRules(&os_analysisd_cdblists, &os_analysisd_cdbrules);
         }
     }
 

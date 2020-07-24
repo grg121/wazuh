@@ -24,7 +24,6 @@ static int os_setdecoderids(const char *p_name);
 static int ReadDecodeAttrs(char *const *names, char *const *values);
 static OSStore *os_decoder_store = NULL;
 
-static void FreeDecoderInfo(OSDecoderInfo *pi);
 
 int getDecoderfromlist(const char *name)
 {
@@ -148,7 +147,7 @@ static int ReadDecodeAttrs(char *const *names, char *const *values)
     return (AFTER_ERROR);
 }
 
-int ReadDecodeXML(const char *file)
+int ReadDecodeXML(const char *file, OSDecoderNode **decoderlist_pn,  OSDecoderNode **decoderlist_nopn)
 {
     OS_XML xml;
     XML_NODE node = NULL;
@@ -756,7 +755,7 @@ int ReadDecodeXML(const char *file)
         }
 
         /* Add osdecoder to the list */
-        if (!OS_AddOSDecoder(pi, &os_analysisd_decoderlist_pn, &os_analysisd_decoderlist_nopn)) {
+        if (!OS_AddOSDecoder(pi, decoderlist_pn, decoderlist_nopn)) {
             merror(DECODER_ERROR);
             goto cleanup;
         }
