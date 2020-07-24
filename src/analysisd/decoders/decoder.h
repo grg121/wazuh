@@ -86,11 +86,12 @@ OSDecoderNode *OS_GetFirstOSDecoder(const char *pname);
 int getDecoderfromlist(const char *name);
 char *GetGeoInfobyIP(char *ip_addr);
 /**
- * Add decoders of base modules to list
- * @param [out] msg If any error occurs, your description will be stored in *msg
- *              *msg can be null.
- * @return  return 0 if an error adding decoder plugin.
-*/
+ * @brief Add decoders of base modules to main list.
+ * @param[out] msg If any error or warning occurs, your description are stored in *msg.
+ *                 If *msg==null, memory are allocate for messages, otherwise
+ *                 memory are reallocate and error messages are stored here.
+ * @return int 0 in case of error, 1 otherwise.
+ */
 int SetDecodeXML(char **msg);
 void HostinfoInit(void);
 int fim_init(void);
@@ -102,9 +103,14 @@ void SecurityConfigurationAssessmentInit(void);
 /**
  * Add decoders to main list
  * 
- * @param [in] *file path of the decoder configuration xml file.
- * @param [out] **msg If any error or warning occurs, your 
- *                  description will be stored in *msg.
+ * @param[in]  *file path of the decoder configuration xml file.
+ * @param[out] **msg If any error or warning occurs, your description
+ *                   If *msg==null, memory are allocate for messages, otherwise
+ *                   memory are reallocate and error messages are stored here.
+ * @return  1 Decoder was added to the list.
+ *          0 in case of error.
+ *         -2 File XML_LDECODER (localdecoderfile) not found or can't get root element of xmlfile.
+ *
 */
 int ReadDecodeXML(const char *file, char **msg);
 

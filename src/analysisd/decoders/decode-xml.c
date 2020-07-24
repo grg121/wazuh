@@ -875,10 +875,15 @@ int SetDecodeXML(char **msg)
     return (1);
 }
 
-/* Allocate memory at "*at" and copy *str to it
- * If *at already exist, realloc the memory and cat str on it
- * Returns the new string
- * If any error or warning occurs, your description will be stored in *smsg
+/**
+ * @brief Appends a copy of *str to the *at string and return the new string
+ * @details Allocate memory at "*at" and copy *str to it
+ *          If *at already exist, realloc the memory and cat str on it
+ * @param[in] at original string (Null an acceptable Value)
+ * @param[in] str source string to append at
+ * @param[out] msg If any error or warning occurs, your description will be stored in *smsg
+ * @return char* The new string
+ * @warning This function assumes that "at" reserved memory is `OS_SIZE_1024`
  */
 char *_loadmemory(char *at, char *str, char **msg)
 {
